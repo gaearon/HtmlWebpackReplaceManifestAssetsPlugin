@@ -2,18 +2,17 @@
 
 This plugin was inspired by the very good post of Andrey Okonetchnikov
 (http://https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95) about the long term caching problem that every developer should solve during the deploy in
-production of his projects. In the post, the detail of replacing in a static
-HTML file the assets with their hashing versions, is not covered even if in one
+production of his projects. In the post, the detail of replacing, in a static
+HTML file, the assets with their hashed versions, is not covered even if in one
 comment Andrey suggested to use the HtmlWebpackPlugin to solve the problem.
-This subplugin of the HtmlWebpackPlugin read the manifest.json file, generated with the ManifestPlugin, and raplace the assets in the html file template with
-their hashing versions.
+This subplugin of the HtmlWebpackPlugin recreate the manifest.json and raplace the assets in the html file template with their hashed versions.
 
 ## Usage
 
 Install via npm:
 
 ```shell
-npm install git://github.com/pierol/html-webpack-replace-manifest-assets-plugin.git
+npm install html-webpack-replace-manifest-assets-plugin
 ```
 
 And then require and provide to webpack:
@@ -41,20 +40,21 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template:'./src/index.html',
-      manifest:'./build/manifest.json',
       inject: false,
       minify: {
         removeCommets: true,
         collapseWhitespace: true
       }
     }),
-    new HtmlWebpackReplaceManifestAssetsPlugin()
+    new HtmlWebpackReplaceManifestAssetsPlugin({
+      manifestVariable: 'webpackManifest'
+    })
   ]
 };
 ```
 
 ### Options
 
-#### `manifest`
+#### `manifestVariable`
 
-Where the manifest.json will be exported to on bundle compilation. 
+The name of the global window variable for storing the map between the webpack modules identifiers and their hashed filename.
