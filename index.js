@@ -89,7 +89,7 @@ HtmlWebpackReplaceManifestAssetsPlugin.prototype.replaceAsset = function(compila
 
 
   // Create in result variable the webpackManifest then
-  // after putting in the html template this placeholder ##window.webpackManifest##
+  // after putting in the html template the placeholder ##window.webpackManifest##,
   // i replace it inlining the window.webpackManifest updated with the hashed assets
   var result = {}
   stats.assets.filter(function(item) {
